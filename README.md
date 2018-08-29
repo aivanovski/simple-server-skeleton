@@ -3,19 +3,19 @@ This is a skeleton web server based on Jetty. Includes: Jetty + Spring + Hiberna
 
 This project is easy way to create REST server. Based on https://github.com/angryziber/simple-java. The main difference is that you can easily create standalone executable jar and run it from command line.
 
-##It includes:
+## It includes:
 - Gradle;
 - Jetty;
 - Spring 3;
 - H2 + Hibernate 3 + Liquibase;
 - JUnit + Mockito;
 
-##Packaging
+## Packaging
 ```
 $ gradlew shadowJar
 ```
 
-##Launching
+## Launching
 ```
 $ java -jar path_to_yout_jar.jar
 ```
