@@ -15,6 +15,7 @@ public class RequestLogFilter implements Filter {
 
 	private final String nodeId = Integer.toHexString((int) (Math.random() * 256)) + "-";
 	private final Logger logger = LoggerFactory.getLogger("requestLogger");
+	private final Logger errorLogger = LoggerFactory.getLogger(RequestLogFilter.class);
 	private final AtomicInteger requestId = new AtomicInteger(0);
 
 	@Override
@@ -36,7 +37,7 @@ public class RequestLogFilter implements Filter {
 
 			filterChain.doFilter(wrappedRequest, response);
 		} catch (Throwable e) {
-			logger.error("", e);
+			errorLogger.error("", e);
 		}
 	}
 
@@ -52,12 +53,12 @@ public class RequestLogFilter implements Filter {
 		String result = "*EMPTY*";
 
 		try {
-			String body = IOUtils.toString(request.getReader());
+			String body = IOUtils.toString(request.getInputStream());
 			if (body != null && body.length() != 0) {
 				result = body;
 			}
 		} catch (IOException e) {
-			logger.error("", e);
+			errorLogger.error("", e);
 		} finally {
 			request.resetInputStream();
 		}
